@@ -1,0 +1,26 @@
+title: HPR Registry Documentation
+description: User documentation for the HPR Hunt, Point, Retrieve dog pedigree registry
+remote_theme: just-the-docs/just-the-docs
+
+# Site URL — GitHub Pages project site
+url: https://openworldza.github.io
+baseurl: /hpr-docs
+
+# Navigation
+nav_sort: order  # use nav_order front matter
+back_to_top: true
+back_to_top_text: Back to top
+
+# Footer
+footer_content: "HPR Registry"
+
+# Colour scheme (light default is fine)
+color_scheme: light
+
+# Search
+search_enabled: true
+
+# Plugins
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
