@@ -170,3 +170,131 @@ The orange badge at the top of the admin dashboard shows the total count of:
 
 The badge is a link to `/admin/queue`. It only appears when there is at least
 one pending item.
+
+---
+
+## Managing roles (`/admin/roles`)
+
+The registry uses a flexible role-based access control (RBAC) system. Admins
+can create custom roles and assign permissions to them.
+
+### Viewing roles
+
+The roles page shows all roles in a table:
+- **Name** — the role identifier
+- **Description** — what the role is for
+- **Permissions** — click to view/edit the permissions assigned to the role
+- **Type** — `System` (built-in) or `Custom`
+
+### System roles
+
+Four system roles are created by default:
+- `user` — can submit dogs (`dog:create`)
+- `member` — can submit and edit kennel dogs (`dog:create`, `dog:edit:own`, `kennel:edit:own`)
+- `kennel_owner` — member permissions plus `dog:approve`, `qualification:create`, `queue:view`, `kennel:member:add`, `kennel:member:remove`
+- `admin` — all permissions
+
+System role names cannot be changed, but their permissions can be edited.
+System roles cannot be deleted.
+
+### Creating a custom role
+
+1. Click **+ Create role**.
+2. Enter a name and description.
+3. Click **Create role**.
+4. Click the permissions count to open the permission editor.
+5. Check the permissions you want to assign.
+
+### Editing a role
+
+Click **Edit** on any role to update its name (custom roles only) or description.
+
+### Editing role permissions
+
+Click the permission count (e.g., "5 permissions") to open the permission editor.
+
+Permissions are grouped by category:
+- **dogs** — `dog:create`, `dog:edit`, `dog:edit:own`, `dog:delete`, `dog:approve`, `dog:reject`, `dog:transfer`
+- **kennels** — `kennel:create`, `kennel:edit`, `kennel:edit:own`, `kennel:delete`, `kennel:approve`, `kennel:reject`, `kennel:member:add`, `kennel:member:remove`
+- **qualifications** — `qualification:create`, `qualification:edit`, `qualification:delete`
+- **users** — `user:view`, `user:edit`, `user:delete`, `user:approve`, `user:reject`, `user:role:assign`
+- **admin** — `queue:view`, `ownership:approve`, `ownership:reject`
+
+Check or uncheck permissions. Changes are saved immediately.
+
+### Deleting a role
+
+Click **Delete** on any custom role. System roles cannot be deleted.
+
+---
+
+## Managing users (`/admin/users`)
+
+The users page lists all registered accounts.
+
+### Filtering users
+
+Use the status dropdown to filter by:
+- **All statuses** — show everyone
+- **Active** — approved accounts
+- **Pending** — awaiting approval
+- **Rejected** — accounts that were not approved
+
+### User detail page (`/admin/users/[id]`)
+
+Click a user's email to open their detail page showing:
+- Email and status
+- Join date
+- Assigned roles
+- Kennel memberships
+- Effective permissions (union of all role permissions)
+
+### Assigning roles to a user
+
+On the user detail page:
+1. Select a role from the dropdown.
+2. Click **Add role**.
+
+The user now has all permissions from that role.
+
+### Removing a role from a user
+
+Click the **×** button next to any role pill to remove it.
+
+---
+
+## Managing kennel members (`/admin/kennels/[id]/members`)
+
+Kennel membership allows multiple users to manage a single kennel's dogs.
+
+### Accessing kennel members
+
+From any kennel profile page, click the **Members** button (visible to admins only).
+
+Or navigate directly to `/admin/kennels/[id]/members`.
+
+### Viewing members
+
+The members table shows:
+- User email
+- Role within the kennel (e.g., `kennel_owner`, `member`)
+- Date joined
+- Actions (change role, remove)
+
+### Adding a member
+
+1. Click **+ Add member**.
+2. Search for a user by email.
+3. Select the user from the search results.
+4. Choose a role (e.g., `kennel_owner` or `member`).
+5. Click **Add member**.
+
+The user can now manage dogs belonging to this kennel.
+
+### Changing a member's role
+
+Use the role dropdown in the members table to change a user's role within the kennel.
+
+### Removing a member
+
+Click **Remove** to revoke a user's membership in the kennel.

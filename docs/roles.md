@@ -141,21 +141,131 @@ Four tabs — each showing pending items with Approve / Reject actions:
 
 ---
 
-## Permission matrix
+## RBAC — permission-based access control
 
-| Action | user | kennel_owner | admin |
-|---|:---:|:---:|:---:|
-| Browse dogs, kennels, breeders | ✅ | ✅ | ✅ |
-| Request dog ownership | ✅ | ✅ | ✅ |
-| Add a dog | ✅ (pending) | ✅ (pending) | ✅ (approved) |
-| Edit own kennel's dogs | — | ✅ (pending) | — |
-| Edit own kennel | — | ✅ (pending) | — |
-| Edit any dog | — | — | ✅ |
-| Edit any kennel | — | — | ✅ |
-| Add/edit breeders | — | — | ✅ |
-| Manage qualifications | — | — | ✅ |
-| Approve/reject queue | — | — | ✅ |
-| Approve/reject users | — | — | ✅ |
-| Assign dog owner | — | — | ✅ |
-| Delete records | — | — | ✅ |
-| Access `/admin` | — | — | ✅ |
+Access is controlled by **permissions**, not role names directly. Users are assigned
+one or more roles, and each role carries a set of permissions. Admins can create
+custom roles and tune permissions at any time via `/admin/roles`.
+
+The four **system roles** (`admin`, `kennel_owner`, `member`, `user`) are created at
+setup and cannot be deleted. Their permissions can still be edited by an admin.
+
+### Kennel membership
+
+Users can be added as members of individual kennels. Each kennel membership carries
+its own role (and that role's permissions), scoped to that kennel only.
+
+For example, a user might have the global `user` role but also be a `member` of
+Kennel A — giving them `dog:edit:own` and `kennel:edit:own` for Kennel A only.
+
+---
+
+## Full permission list
+
+### Dogs
+
+| Permission | Description |
+|---|---|
+| `dog:create` | Submit a dog for registration |
+| `dog:edit` | Edit any dog record |
+| `dog:edit:own` | Edit dogs in own kennel |
+| `dog:delete` | Delete a dog record |
+| `dog:approve` | Approve a pending dog submission |
+| `dog:reject` | Reject a pending dog submission |
+| `dog:transfer` | Transfer dog ownership |
+
+### Kennels
+
+| Permission | Description |
+|---|---|
+| `kennel:create` | Register a new kennel |
+| `kennel:edit` | Edit any kennel record |
+| `kennel:edit:own` | Edit own kennel record |
+| `kennel:delete` | Delete a kennel record |
+| `kennel:approve` | Approve a pending kennel |
+| `kennel:reject` | Reject a pending kennel |
+| `kennel:member:add` | Add a member to a kennel |
+| `kennel:member:remove` | Remove a member from a kennel |
+
+### Qualifications
+
+| Permission | Description |
+|---|---|
+| `qualification:create` | Create a qualification |
+| `qualification:edit` | Edit a qualification |
+| `qualification:delete` | Delete a qualification |
+
+### Users
+
+| Permission | Description |
+|---|---|
+| `user:view` | View user list |
+| `user:edit` | Edit a user account |
+| `user:delete` | Delete a user account |
+| `user:approve` | Approve a pending user account |
+| `user:reject` | Reject a pending user account |
+| `user:role:assign` | Assign roles to users |
+
+### Admin
+
+| Permission | Description |
+|---|---|
+| `queue:view` | View the approval queue |
+| `ownership:approve` | Approve an ownership transfer request |
+| `ownership:reject` | Reject an ownership transfer request |
+
+---
+
+## Default role → permission matrix
+
+| Permission | user | member | kennel_owner | admin |
+|---|:---:|:---:|:---:|:---:|
+| `dog:create` | ✅ | ✅ | ✅ | ✅ |
+| `dog:edit` | — | — | — | ✅ |
+| `dog:edit:own` | — | ✅ | ✅ | ✅ |
+| `dog:delete` | — | — | — | ✅ |
+| `dog:approve` | — | — | ✅ | ✅ |
+| `dog:reject` | — | — | — | ✅ |
+| `dog:transfer` | — | — | — | ✅ |
+| `kennel:create` | — | — | — | ✅ |
+| `kennel:edit` | — | — | — | ✅ |
+| `kennel:edit:own` | — | ✅ | ✅ | ✅ |
+| `kennel:delete` | — | — | — | ✅ |
+| `kennel:approve` | — | — | — | ✅ |
+| `kennel:reject` | — | — | — | ✅ |
+| `kennel:member:add` | — | — | ✅ | ✅ |
+| `kennel:member:remove` | — | — | ✅ | ✅ |
+| `qualification:create` | — | — | ✅ | ✅ |
+| `qualification:edit` | — | — | — | ✅ |
+| `qualification:delete` | — | — | — | ✅ |
+| `user:view` | — | — | — | ✅ |
+| `user:edit` | — | — | — | ✅ |
+| `user:delete` | — | — | — | ✅ |
+| `user:approve` | — | — | — | ✅ |
+| `user:reject` | — | — | — | ✅ |
+| `user:role:assign` | — | — | — | ✅ |
+| `queue:view` | — | — | ✅ | ✅ |
+| `ownership:approve` | — | — | — | ✅ |
+| `ownership:reject` | — | — | — | ✅ |
+
+---
+
+## How permissions are resolved
+
+1. **Global permissions** come from the user's assigned roles (via `user_roles`).
+2. **Kennel-scoped permissions** come from kennel memberships (via `kennel_members`).
+3. A user can perform an action if they have the relevant permission from either source.
+4. Permissions are cached for 5 minutes — changes take up to 5 minutes to take effect.
+
+Example: A user with the `user` role (global) and `member` membership in "Sunset Kennels"
+can submit dogs (`dog:create` from their global role) and edit dogs belonging to
+Sunset Kennels (`dog:edit:own` from their kennel-scoped membership).
+
+### Custom roles
+
+Admins can create custom roles with any combination of permissions via `/admin/roles`.
+This allows fine-grained access control — for example, a "moderator" role that
+can approve dogs but cannot manage users.
+
+See [Admin guide — Managing roles](admin-guide.md#managing-roles-adminroles)
+for instructions.

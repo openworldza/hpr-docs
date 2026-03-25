@@ -9,9 +9,8 @@ This guide covers what a kennel owner (`kennel_owner` role) can do in the regist
 Kennel owners can do everything a standard user can do — see [User guide](user-guide.md)
 for browsing, searching, and ownership requests.
 
-Your account must be linked to a kennel record before kennel-owner features are
-available. Contact the registry admin if you have been given the `kennel_owner` role
-but your kennel is not yet linked.
+Your account must be a member of at least one kennel before kennel-owner features
+are available. An admin adds you as a member via the kennel's member management page.
 
 ---
 
@@ -118,3 +117,56 @@ Changes go to **pending** status and must be approved by an admin.
 An admin reviews all pending submissions in the approval queue. There is no
 automatic notification when a submission is approved or rejected — check the
 dog's profile page to see its current status.
+
+---
+
+## Kennel membership
+
+A kennel can have multiple members. Each member can add and edit dogs for
+the kennel, subject to admin approval.
+
+### How membership works
+
+- An admin assigns users to kennels via the **Manage members** page.
+- Each membership has a role (e.g., `kennel_owner` or `member`).
+- Members with the appropriate permissions can:
+  - Add dogs to the kennel
+  - Edit dogs belonging to the kennel
+  - Edit the kennel's details
+
+### What members can do
+
+| Action | kennel_owner | member |
+|---|:---:|:---:|
+| Add dogs to kennel (`dog:create`) | ✅ | ✅ |
+| Edit kennel dogs (`dog:edit:own`) | ✅ | ✅ |
+| Edit kennel details (`kennel:edit:own`) | ✅ | ✅ |
+| Approve own-kennel dogs (`dog:approve`) | ✅ | — |
+| Add/remove kennel members | ✅ | — |
+
+All non-admin submissions go to the approval queue.
+
+### Owner vs member
+
+- **kennel_owner** — full kennel management including `dog:approve` for own kennel,
+  `qualification:create`, `queue:view`, and the ability to add/remove kennel members.
+- **member** — can add and edit dogs and edit the kennel record, but cannot approve
+  submissions or manage other members.
+
+The specific permissions for each role can be customised by an admin.
+
+### Multiple kennels
+
+A user can be a member of multiple kennels. When adding a dog, you select
+which kennel the dog belongs to from a dropdown of your kennel memberships.
+
+### Becoming a member
+
+Kennel membership is managed by admins. If you should be a member of a kennel
+but don't see it in your list, contact the registry admin.
+
+### Viewing your memberships
+
+Your kennel memberships are shown on your user profile (accessible to admins).
+The **Edit** button will appear on kennel profiles for any kennel you are
+a member of with the appropriate permissions.
