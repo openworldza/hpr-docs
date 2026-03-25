@@ -28,7 +28,7 @@ Fill in as many fields as you can. Required fields are marked — colour is mand
 - Sex (Male / Female)
 
 **Section 2 — Details**
-- Breed (Vizsla, GSP, GWP, Weimaraner, or HWV)
+- Breed (from the registry's configured breed list)
 - Colour *(required)*
 - Date of birth
 - Country of origin

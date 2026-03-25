@@ -7,7 +7,7 @@ nav_order: 2
 
 ## Creating an account
 
-1. Visit the HPR Registry and click **Sign in** on the landing page.
+1. Visit the registry and click **Sign in** on the landing page.
 2. On the sign-in page, choose **Continue with Google** or enter your email
    address to sign up with a password.
 3. Complete the sign-up flow. Your account is created immediately, but starts

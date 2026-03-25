@@ -263,6 +263,44 @@ Click the **×** button next to any role pill to remove it.
 
 ---
 
+## Registry configuration
+
+The registry is configured per-tenant via the database. Configuration includes
+the allowed breed list, visual theme, logo, support email, and feature flags.
+
+The frontend reads configuration from `GET /api/config` on startup. All
+tenant-specific values come from this endpoint — nothing is hardcoded.
+
+### What is configurable
+
+| Setting | Description | Example |
+|---|---|---|
+| Breeds | Allowed breed list for dog submissions | `["Vizsla","GSP","GWP","Weimaraner","HWV"]` |
+| Theme — primary colour | Main brand colour (CSS variable) | `#2D5016` |
+| Theme — accent colour | Secondary brand colour | `#8B6914` |
+| Theme — heading font | Font for headings | `Playfair Display` |
+| Theme — body font | Font for body text | `Inter` |
+| Logo URL | Path or URL to the registry logo | `/logos/hpr.svg` |
+| Support email | Contact email shown in the footer | `admin@hprregistry.co.za` |
+| Features | Feature flags (on/off toggles) | `{}` |
+
+### Changing configuration
+
+Configuration is stored in the `tenants.config` JSON column in the database.
+Changes require a database update (via `seed.sql` or direct SQL) — there is
+no admin UI for configuration yet.
+
+To update configuration, edit the tenant's config JSON in `seed.sql` and run
+`make db-seed`.
+
+### Breed validation
+
+When a user or kennel owner submits a dog, the breed must be in the registry's
+configured breed list. If the registry has no configured breeds (empty list),
+any breed is accepted.
+
+---
+
 ## Managing kennel members (`/admin/kennels/[id]/members`)
 
 Kennel membership allows multiple users to manage a single kennel's dogs.

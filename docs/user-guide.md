@@ -20,7 +20,7 @@ top navigation bar (visible once your account is approved).
 | Field | Required? | Notes |
 |---|---|---|
 | Registered name | Yes | Name without kennel prefix/suffix |
-| Breed | Yes | Vizsla, GSP, GWP, Weimaraner, or HWV |
+| Breed | Yes | From registry's configured breed list |
 | Colour | Yes | |
 | Sex | No | Male or Female |
 | Kennel suffix | No | The kennel prefix in the registered name, if any |

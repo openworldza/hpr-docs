@@ -21,13 +21,19 @@ their account approved before accessing the registry.
 | [User guide](user-guide.md) | Standard members (`user` role) |
 | [Kennel owner guide](kennel-owner-guide.md) | Kennel owners (`kennel_owner` role) |
 | [Admin guide](admin-guide.md) | Registry administrators (`admin` role) |
+| [Roadmap & feature requests](roadmap.md) | Planned features and future work |
 
 ---
 
 ## Supported breeds
+
+The breed list is configured per registry and may vary. The default HPR registry
+supports:
 
 - Vizsla
 - German Shorthaired Pointer (GSP)
 - German Wirehaired Pointer (GWP)
 - Weimaraner
 - Hungarian Wirehaired Vizsla (HWV)
+
+When submitting a dog, the breed dropdown shows only breeds enabled for your registry.
