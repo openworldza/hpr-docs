@@ -192,22 +192,30 @@ on the page. The admin can approve or reject the request from the approval queue
 
 ---
 
-## Breeding pair COI calculator
+## COI calculator
 
 The **Coefficient of Inbreeding (COI)** calculator lets you assess genetic
 diversity before committing to a breeding. It computes the probability that
 two alleles in the offspring are identical by descent.
 
+### How to access it
+
+If you have the `coi:calculate` permission (granted to kennel owners and admins
+by default), you will see **COI Calculator** in the navigation menu.
+
+Click it to open the calculator at `/coi`.
+
 ### How to use it
 
-1. Navigate to the COI calculator (requires `coi:calculate` permission — granted
-   to kennel owners and admins by default).
-2. Select a **sire** and a **dam** from the registry.
-3. The system returns:
-   - **COI percentage** — lower is generally better for genetic diversity
-   - **Generations deep** — how many generations the calculation spans
+1. In the **Sire (Male)** field, search for the prospective sire by name.
+2. In the **Dam (Female)** field, search for the prospective dam by name.
+3. Click **Calculate COI**.
+4. The system displays:
+   - **COI percentage** — the main result, with a classification badge (Low, Moderate, High, Very High)
+   - **Progress bar** — visual reference showing half-sibling (6.25%), first cousin (12.5%), and full sibling (25%) markers
    - **Completeness percentage** — how much of the pedigree tree is known
-   - **Common ancestors** — shared ancestors sorted by contribution
+   - **Generations deep** — how many generations the calculation spans
+   - **Common ancestors** — shared ancestors sorted by contribution, showing the number of paths via sire and dam
 
 ### What completeness means
 

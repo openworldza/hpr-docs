@@ -126,6 +126,27 @@ display name updates if the qualification adds a prefix.
 
 ---
 
+## Using the COI calculator
+
+The **Coefficient of Inbreeding (COI)** calculator helps breeders assess genetic
+diversity before committing to a breeding pair.
+
+1. Navigate to **COI Calculator** in the menu (requires permission).
+2. Search for a **sire** (male) in the first field.
+3. Search for a **dam** (female) in the second field.
+4. Click **Calculate COI**.
+
+The result shows:
+- **COI percentage** — lower is generally better for genetic diversity
+- **Classification** — Low, Moderate, High, or Very High
+- **Completeness** — how much of the pedigree is known (higher is more reliable)
+- **Common ancestors** — shared ancestors sorted by contribution
+
+If completeness is low (many parents entered as free text rather than linked),
+the calculated COI may underestimate the true value.
+
+---
+
 ## The approval queue (for admins)
 
 All submissions go through an approval queue with five tabs:
