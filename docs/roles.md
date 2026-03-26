@@ -191,9 +191,20 @@ Kennel A — giving them `dog:edit:own` and `kennel:edit:own` for Kennel A only.
 
 | Permission | Description |
 |---|---|
-| `qualification:create` | Create a qualification |
-| `qualification:edit` | Edit a qualification |
-| `qualification:delete` | Delete a qualification |
+| `qualification:create` | Create a qualification definition |
+| `qualification:edit` | Edit a qualification definition |
+| `qualification:delete` | Delete a qualification definition |
+| `qualification:result:submit` | Submit a qualification result for a dog |
+| `qualification:result:approve` | Approve a pending qualification result |
+| `qualification:result:reject` | Reject a pending qualification result |
+
+### Organisations
+
+| Permission | Description |
+|---|---|
+| `organisation:create` | Create an organisation |
+| `organisation:edit` | Edit an organisation |
+| `organisation:delete` | Delete an organisation |
 
 ### Users
 
@@ -210,7 +221,7 @@ Kennel A — giving them `dog:edit:own` and `kennel:edit:own` for Kennel A only.
 
 | Permission | Description |
 |---|---|
-| `queue:view` | View the approval queue |
+| `queue:view` | View the approval queue (all tabs: Users, Dogs, Kennels, Qualifications, Ownership) |
 | `ownership:approve` | Approve an ownership transfer request |
 | `ownership:reject` | Reject an ownership transfer request |
 

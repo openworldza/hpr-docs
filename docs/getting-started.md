@@ -17,17 +17,26 @@ nav_order: 2
 
 All new accounts require admin approval before you can access the registry.
 
-After signing in for the first time you will see:
+After signing in for the first time you will see the **pending page** (`/pending`):
 
 > **Your account is pending approval.**
-> An admin will review your request.
+>
+> The HPR Registry is moderated by the breed club committee.
+> An administrator will review your request. This usually takes 1–2 business days.
+>
+> Questions? Contact admin@hprregistry.co.za
 
-This is the `/pending` page. You cannot browse the registry until your account
-is approved.
+This page shows:
+- A clear message that your account is awaiting approval
+- An explanation of the approval process (provided by the registry)
+- The typical wait time
+- A support email link for questions
+
+You cannot browse the registry until your account is approved.
 
 Once an admin approves your account you can sign in normally and access the
-registry. If your account is rejected you will see a `/rejected` page and will
-need to contact the registry administrator.
+registry. If your account is rejected you will see a `/rejected` page with
+the rejection reason and need to contact the registry administrator.
 
 ## Account statuses
 

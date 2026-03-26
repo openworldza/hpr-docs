@@ -92,17 +92,75 @@ The kennel form covers:
 - KUSA registration number
 - Status (active / inactive)
 - Founded date
+- **Logo** — upload your kennel's logo (JPEG, PNG, WebP, or SVG, max 2MB)
 
-**Section 2 — Location**
+**Section 2 — Breeder visibility**
+- **List breeders publicly** toggle
+  - When **on**: this kennel's breeders appear in the breeder dropdown when
+    someone registers a dog with this kennel as the birth kennel
+  - When **off**: breeders are internal only; submitters see "Other / not listed"
+    and you will be notified to review and link the correct breeder
+
+**Section 3 — Location**
 - Country — searchable dropdown (ISO countries)
 - Province — SA provinces dropdown when South Africa is selected; free text otherwise
 
-**Section 3 — Contact**
+**Section 4 — Contact**
 - Email, phone, website
 
-**Section 4 — Notes**
+**Section 5 — Notes**
 
 Changes go to **pending** status and must be approved by an admin.
+
+---
+
+## Managing breeders
+
+A kennel can have multiple breeders. Breeders are the individuals who bred
+specific dogs — they may or may not be kennel owners.
+
+### Adding a breeder
+
+1. Navigate to your kennel's profile.
+2. Click **Manage breeders**.
+3. Click **+ Add breeder**.
+4. Enter the breeder's name and contact details.
+5. Optionally link to a registered user account.
+
+### Breeder visibility
+
+Whether your breeders appear publicly depends on your kennel's **List breeders publicly** setting:
+
+- **On**: Breeders appear on your kennel's public profile and in the breeder
+  dropdown when registering dogs bred at this kennel
+- **Off**: Breeders are internal only — visible to you and admins but not on
+  the public profile or in dropdowns
+
+### What happens when someone submits without a linked breeder
+
+If someone submits a dog with your kennel as the birth kennel and selects
+"Other / not listed" for the breeder, you will be notified to:
+
+1. Review the submission
+2. Link the correct breeder from your kennel's breeder list
+
+This ensures breeder records stay accurate even when the submitter doesn't know
+which breeder to select.
+
+---
+
+## Notifications you may receive
+
+As a kennel owner, you are notified when:
+
+- A dog is submitted with your kennel as the birth kennel and **breeder = "Other / not listed"**
+  — review and link the correct breeder
+- A dog is submitted with a **free-text parent** that might match a dog in your kennel
+  — review and link the parent to the correct registry record
+- A new kennel member is added or removed (by an admin)
+
+Notifications help you keep kennel records accurate without having to monitor
+every submission manually.
 
 ---
 

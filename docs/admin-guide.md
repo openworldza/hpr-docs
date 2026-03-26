@@ -91,15 +91,54 @@ This creates an owner history entry on the dog linking to that user's account.
 
 ## Managing qualifications (`/admin/qualifications`)
 
-Qualifications are the linked entities that appear as pills on dog profiles
-(e.g. JD, CC, CAC).
+Qualifications represent tests, titles, and certifications that dogs can earn.
+They are organised by **organisation** (e.g. JGHV, KUSA) and appear on dog profiles.
 
-On the qualifications page you can:
-- **Add** a new qualification — name and abbreviation
-- **Edit** an existing qualification — inline
-- **Delete** a qualification
+### Organisation management
 
-Qualifications are searchable by members when filling in the dog form.
+Organisations issue qualifications. Each organisation has:
+- Name and abbreviation
+- Country
+- Website
+- Description
+- Logo (optional)
+
+### Qualification configuration
+
+Each qualification has:
+- **Name** — full name (e.g. "Verbandsjugendprüfung")
+- **Abbreviation** — short code shown on dog profiles (e.g. "VJP")
+- **Organisation** — which organisation issues it
+- **Result type** — configure which fields appear on the result form:
+  - **Has score** — numeric score input
+  - **Has grade** — grade dropdown or free text
+  - **Is pass/fail** — toggle for pass/fail results
+  - **Grade options** — predefined grades (if set, shows dropdown; otherwise free text)
+- **Adds to name** toggle:
+  - When **on**: the abbreviation is prepended to the dog's display name when approved
+  - When **off**: the qualification appears on the profile but doesn't affect the name
+  - Field tests like VGP, HZP typically add to name; health tests typically do not
+
+### Dog display name
+
+A dog's **display name** is computed from their registered name plus approved
+qualification prefixes. For example:
+
+- Registered name: "Kennel von Haus Example"
+- Approved qualifications with adds_name_prefix: VGP (achieved 2024-01), HZP (achieved 2023-06)
+- Display name: "HZP-VGP Kennel von Haus Example" (ordered by date achieved)
+
+The display name appears everywhere: search results, cards, profile heading, pedigree links.
+The registered name is never modified in the database.
+
+### Certificate handling
+
+Certificates are uploaded by users when submitting qualification results.
+They are used for **admin verification only** and are **never shown publicly**.
+
+- View certificates inline in the approval queue (thumbnail or PDF link)
+- Certificates are required before approval (but you can approve without at your discretion)
+- After approval, the certificate is retained for records but not visible on dog profiles
 
 ---
 
@@ -109,11 +148,25 @@ All submissions from users and kennel owners, plus new user registrations, appea
 
 Access via the pending badge on the dashboard or via the **Approval queue** quick link.
 
+The queue has five tabs: **Users**, **Dogs**, **Kennels**, **Qualifications**, **Ownership**.
+
+### Users tab
+
+Shows new account registrations awaiting activation.
+
+Each row shows: email address, sign-up date.
+
+- **Approve** — account status becomes `active`; user can now access the registry
+- **Reject** — opens the rejection reason modal; account status becomes `rejected`;
+  user sees the `/rejected` page when they sign in
+
 ### Dogs tab
 
 Shows dogs submitted by users or kennel owners with `status = pending`.
 
-Each row shows: dog name, breed, submission date.
+Each row shows: dog display name, breed, submitter, submission date.
+- Unlinked parent indicator if a parent was entered as free text
+- Quick link to full profile
 
 - **Approve** — dog status becomes `approved`; appears in public search
 - **Reject** — opens the rejection reason modal; dog status becomes `rejected`;
@@ -127,6 +180,30 @@ Each row shows: kennel name, country, submission date.
 
 - **Approve** / **Reject** — same behaviour as dogs
 
+### Qualifications tab
+
+Shows qualification results submitted by users awaiting verification.
+
+Each row shows:
+- Dog display name (clickable link to profile)
+- Qualification (organisation + name)
+- Grade/score
+- Submitted by
+- Submission date
+- **Certificate indicator** — thumbnail icon if uploaded, warning if missing
+
+**Viewing certificates:**
+Certificates are viewable inline (thumbnail for images, PDF link for documents).
+This is the **only place** certificates are visible — they are never shown publicly.
+
+**Approving:**
+- If certificate present: approve directly
+- If no certificate: a warning appears, but you can still approve at your discretion
+
+**Display name update:**
+When you approve a qualification that has **adds_name_prefix = true**, the dog's
+display name updates immediately to include the qualification abbreviation as a prefix.
+
 ### Ownership requests tab
 
 Shows requests from users to be listed as a dog's owner.
@@ -135,16 +212,6 @@ Each row shows: dog name, requesting user's email, optional message, submission 
 
 - **Approve** — ownership request is accepted; user is linked to the dog
 - **Reject** — request is declined with a reason
-
-### Users tab
-
-Shows new account registrations awaiting activation.
-
-Each row shows: email address, sign-up date.
-
-- **Approve** — account status becomes `active`; user can now access the registry
-- **Reject** — opens the rejection reason modal; account status becomes `rejected`;
-  user sees the `/rejected` page when they sign in
 
 ---
 
@@ -218,6 +285,7 @@ Permissions are grouped by category:
 - **kennels** — `kennel:create`, `kennel:edit`, `kennel:edit:own`, `kennel:delete`, `kennel:approve`, `kennel:reject`, `kennel:member:add`, `kennel:member:remove`
 - **qualifications** — `qualification:create`, `qualification:edit`, `qualification:delete`
 - **users** — `user:view`, `user:edit`, `user:delete`, `user:approve`, `user:reject`, `user:role:assign`
+- **breeding** — `coi:calculate`
 - **admin** — `queue:view`, `ownership:approve`, `ownership:reject`
 
 Check or uncheck permissions. Changes are saved immediately.
