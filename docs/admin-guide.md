@@ -131,6 +131,47 @@ qualification prefixes. For example:
 The display name appears everywhere: search results, cards, profile heading, pedigree links.
 The registered name is never modified in the database.
 
+### Seeded qualifications
+
+The following qualifications are pre-configured in the registry.
+
+#### JGHV — Jagdgebrauchshundverband
+
+All JGHV qualifications have a numeric score and a grade. All add a name prefix
+when approved (e.g. "VGP-HZP Kennel von Haus Example").
+
+| Name | Abbreviation | Type | Grades |
+|------|-------------|------|--------|
+| Verbandsjugendprüfung | VJP | Field test | Prize I, Prize II, Prize III |
+| Herbstzuchtprüfung | HZP | Field test | Prize I, Prize II, Prize III |
+| Verbandsgebrauchsprüfung | VGP | Field test | Prize I, Prize II, Prize III, Pass, Fail |
+| Bringtreueprüfung | BGVP | Field test | Prize I, Prize II, Prize III |
+| Armbruster Zuchtprüfung | AZP | Working ability | Prize I, Prize II, Prize III |
+
+#### KUSA — Kennel Union of Southern Africa
+
+Based on KUSA Schedule 5C(4) and Schedule 5C(6). All add a name prefix when approved.
+
+| Name | Abbreviation | Type | Result format |
+|------|-------------|------|---------------|
+| SA-Derby Test | SA-D | Field test | Grade: Prize 1, Prize 2, Prize 3 |
+| SA-Novice Test | SA-N | Field test | Grade: Prize 1, Prize 2, Prize 3 |
+| SA-Older Dog Elite Test | SA-AZP | Working ability | Grade: Prize 1, Prize 2, Prize 3 |
+| Novice Shooting Dog | NSD | Working ability | Pass/Fail |
+| Shooting Dog | SD | Working ability | Pass/Fail |
+| Shooting Dog Excellent | SDX | Working ability | Pass/Fail |
+| Novice Retrieving Dog | NRD | Working ability | Pass/Fail |
+| Retrieving Dog | RD | Working ability | Pass/Fail |
+| Retrieving Dog Excellent | RDX | Working ability | Pass/Fail |
+
+#### VDD — Verein Deutsch-Drahthaar
+
+| Name | Abbreviation | Type | Result format |
+|------|-------------|------|---------------|
+| VDD Natural Ability | VDD-NA | Field test | Pass/Fail |
+
+VDD-NA does **not** add a name prefix.
+
 ### Certificate handling
 
 Certificates are uploaded by users when submitting qualification results.
@@ -148,17 +189,7 @@ All submissions from users and kennel owners, plus new user registrations, appea
 
 Access via the pending badge on the dashboard or via the **Approval queue** quick link.
 
-The queue has five tabs: **Users**, **Dogs**, **Kennels**, **Qualifications**, **Ownership**.
-
-### Users tab
-
-Shows new account registrations awaiting activation.
-
-Each row shows: email address, sign-up date.
-
-- **Approve** — account status becomes `active`; user can now access the registry
-- **Reject** — opens the rejection reason modal; account status becomes `rejected`;
-  user sees the `/rejected` page when they sign in
+The queue has six tabs: **Dogs**, **Qualifications**, **Health**, **Kennels**, **Breeders**, **Users**, plus a **History** tab for the audit log.
 
 ### Dogs tab
 
@@ -168,17 +199,10 @@ Each row shows: dog display name, breed, submitter, submission date.
 - Unlinked parent indicator if a parent was entered as free text
 - Quick link to full profile
 
-- **Approve** — dog status becomes `approved`; appears in public search
+- **Approve** — dog status becomes `approved`; display name is computed and the
+  dog appears in public search
 - **Reject** — opens the rejection reason modal; dog status becomes `rejected`;
   reason is stored and shown on the dog's profile
-
-### Kennels tab
-
-Shows kennel records with `status = pending` (edits submitted by kennel owners).
-
-Each row shows: kennel name, country, submission date.
-
-- **Approve** / **Reject** — same behaviour as dogs
 
 ### Qualifications tab
 
@@ -190,40 +214,156 @@ Each row shows:
 - Grade/score
 - Submitted by
 - Submission date
-- **Certificate indicator** — thumbnail icon if uploaded, warning if missing
+- **Certificate column** — document icon if a certificate is uploaded, muted
+  "No certificate" text if not
 
-**Viewing certificates:**
-Certificates are viewable inline (thumbnail for images, PDF link for documents).
-This is the **only place** certificates are visible — they are never shown publicly.
+**Certificate viewer:**
+Click the document icon in the certificate column to open the **certificate
+viewer modal**. The modal displays the certificate inline (image preview or
+PDF via iframe). From the modal you can **Approve** or **Reject** the result
+directly — no need to close the modal and use the row buttons.
+
+Certificates are visible **only** in the admin queue. They are never shown
+publicly on dog profiles.
 
 **Approving:**
-- If certificate present: approve directly
+- If certificate present: approve directly (from the row or from the certificate viewer modal)
 - If no certificate: a warning appears, but you can still approve at your discretion
 
 **Display name update:**
 When you approve a qualification that has **adds_name_prefix = true**, the dog's
 display name updates immediately to include the qualification abbreviation as a prefix.
 
-### Ownership requests tab
+### Health tab
 
-Shows requests from users to be listed as a dog's owner.
+Shows health record submissions awaiting approval.
 
-Each row shows: dog name, requesting user's email, optional message, submission date.
+Each row shows: dog display name, test type (Hips, Eyes, etc.), result, submitter, date.
 
-- **Approve** — ownership request is accepted; user is linked to the dog
-- **Reject** — request is declined with a reason
+- **Approve** / **Reject** — same behaviour as other tabs
+
+### Kennels tab
+
+Shows kennel records with `status = pending` (edits submitted by kennel owners).
+
+Each row shows: kennel name, country, submission date.
+
+- **Approve** / **Reject** — same behaviour as dogs
+
+### Breeders tab
+
+Shows breeder records with `status = pending`.
+
+Each row shows: breeder name, linked kennel (if any), submission date.
+
+- **Approve** / **Reject** — same behaviour as dogs
+
+### Users tab
+
+Shows new account registrations awaiting activation.
+
+Each row shows: email address, sign-up date.
+
+- **Approve** — account status becomes `active`; user can now access the registry
+- **Reject** — opens the rejection reason modal; account status becomes `rejected`;
+  user sees the `/rejected` page when they sign in
 
 ---
 
-## Rejection reason modal
+## Bulk approve
 
-When you click **Reject** on any item, a modal appears:
+You can approve multiple pending records at once from any queue tab.
 
-1. Enter a reason for rejection (required).
+### Selecting records
+
+- Each row has a **checkbox** on the left
+- Check individual rows, or use the **"Select all N pending"** shortcut at the
+  top of the tab to select every pending record of that type
+- The bulk action bar appears at the bottom when at least one row is selected,
+  showing the count of selected items
+
+### Approving
+
+1. Select the records you want to approve.
+2. Click **Approve selected** in the bulk action bar.
+3. A confirmation modal appears — type **APPROVE** (exact, case-sensitive) to confirm.
+4. Click **Confirm**.
+
+The system processes each record individually. If some records fail (e.g. a
+qualification missing a certificate when override is not allowed), those failures
+are reported per-record and the successful approvals are not rolled back.
+
+**Missing certificate warning:** When bulk-approving qualifications, the modal
+shows a count of results that have no certificate attached. You can proceed at
+your discretion.
+
+---
+
+## Certificate viewer
+
+The certificate viewer modal is available from the Qualifications tab in the
+approval queue. It lets you review a certificate without leaving the queue.
+
+### How to use it
+
+1. In the Qualifications tab, find a row with a certificate (document icon in
+   the certificate column).
+2. Click the document icon.
+3. The modal opens with the certificate displayed inline:
+   - **Images** (JPEG, PNG, WebP) — shown as a preview image
+   - **PDFs** — displayed in an embedded iframe
+4. From the modal footer, click **Approve** or **Reject**.
+
+Approving or rejecting from the modal has the same effect as using the row
+buttons — the result updates, the audit log is written, and the modal closes.
+
+---
+
+## Rejection reasons
+
+A reason is **required** for every rejection. The reason must be at least 10
+characters long.
+
+When you click **Reject** on any item (from a queue row or from the certificate
+viewer modal), a modal appears:
+
+1. Enter a clear reason for rejection (minimum 10 characters).
 2. Click **Reject** to confirm.
 
-The reason is stored on the record and displayed to the relevant user (on the
-dog/kennel profile, or on their account page).
+The reason is:
+- Stored in the **approval audit log** (see below)
+- Visible to the member who submitted the record (on their account history page
+  and on the dog/kennel profile)
+- Expandable in the audit log History tab
+
+---
+
+## Approval audit log
+
+Every approve and reject action is recorded in the audit log. The log captures
+who acted, what they acted on, when, and (for rejections) why.
+
+### History tab
+
+The **History** tab in the approval queue shows the full audit trail. It is the
+sixth tab, after Users.
+
+**Columns:** date, entity type, entity name, action (approved/rejected),
+acted by, submitted by, reason (expandable for rejections).
+
+**Filters:**
+- **Type** — filter by entity type (dog, kennel, qualification, health, breeder, user)
+- **Action** — filter by action (approved, rejected)
+
+Results are paginated. Dates are shown as relative time with the full timestamp
+in a tooltip on hover.
+
+### Where else audit data appears
+
+- **Member account history** (`/account/history`) — members see their own
+  submission results (approved/rejected with reasons)
+- **Kennel audit section** — on each kennel profile, a collapsible History section
+  shows audit entries for that kennel and its dogs (visible to kennel owners and admins)
 
 ---
 
@@ -343,7 +483,7 @@ tenant-specific values come from this endpoint — nothing is hardcoded.
 
 | Setting | Description | Example |
 |---|---|---|
-| Breeds | Allowed breed list for dog submissions | `["Vizsla","GSP","GWP","Weimaraner","HWV"]` |
+| Breeds | Allowed breed list for dog submissions | `["Hungarian Vizsla","German Shorthaired Pointer","German Wirehaired Pointer","Weimaraner","Hungarian Wirehaired Vizsla"]` |
 | Theme — primary colour | Main brand colour (CSS variable) | `#2D5016` |
 | Theme — accent colour | Secondary brand colour | `#8B6914` |
 | Theme — heading font | Font for headings | `Playfair Display` |
@@ -404,3 +544,131 @@ Use the role dropdown in the members table to change a user's role within the ke
 ### Removing a member
 
 Click **Remove** to revoke a user's membership in the kennel.
+
+---
+
+## Bulk upload (CSV and ZIP import)
+
+Bulk upload allows admins and kennel owners to import multiple records at once
+using a CSV file or a ZIP file containing a CSV and certificate files. All
+imported records go through the same approval queue as individual submissions.
+
+### Getting started
+
+1. Navigate to the **Bulk Upload** page (Admin sidebar > Registry > Bulk upload).
+2. Download a template for the record type you want to import (dogs, kennels,
+   breeders, qualifications, or health records).
+3. Fill in the template with your data. You can mix multiple types in one file
+   by using the `type` column.
+4. Upload the CSV file (or a ZIP — see below). The system validates every row
+   before creating any records.
+5. If there are errors, fix them and re-upload. Warnings (e.g., ambiguous name
+   matches) do not block the upload.
+6. Track progress on the job status section of the page.
+
+### CSV format
+
+Every CSV file must have a `type` column. Valid types: `dog`, `kennel`,
+`breeder`, `qualification`, `health`. Each type has its own required columns:
+
+- **Dogs**: registered_name, breed, sex (M/F), dob (YYYY-MM-DD)
+- **Kennels**: name
+- **Breeders**: first_name, last_name
+- **Qualifications**: dog_name or chip_id, qualification_abbreviation,
+  organisation_abbreviation, date_achieved
+- **Health records**: dog_name or chip_id, test_name (Hips/Eyes), result
+
+### ZIP upload (with certificates)
+
+To include certificate files with qualification records, upload a ZIP file
+instead of a plain CSV:
+
+1. Prepare your CSV as normal.
+2. Add a `certificate_filename` column to qualification rows — set it to the
+   filename of the certificate (e.g., `argo_vgp_2024.pdf`).
+3. Place the CSV and all certificate files in a ZIP archive. The CSV should
+   be named `bulk.csv` (preferred) or any `.csv` file in the ZIP root.
+4. Certificate files can be PDF, JPEG, PNG, or WebP.
+5. Upload the ZIP file on the Bulk Upload page.
+
+The system extracts the certificates, uploads them to storage, and links them
+to the corresponding qualification rows. Filenames are matched
+case-insensitively. If a `certificate_filename` refers to a file not found in
+the ZIP, the row proceeds with a warning (no certificate attached).
+
+### Limits
+
+| Limit | CSV | ZIP |
+|---|---|---|
+| Maximum file size | 5 MB | 50 MB |
+| Maximum rows | 1,000 | 1,000 |
+| Maximum certificate files | n/a | 500 |
+
+### Processing order
+
+The bulk worker processes rows in a fixed order to respect dependencies:
+kennels, then breeders, then dogs, then qualifications, then health records.
+This means a single upload can create a kennel, its breeders, dogs belonging
+to that kennel, and qualification results for those dogs — all in one file.
+
+### Permissions
+
+| Permission | Admin | Kennel owner |
+|---|:---:|:---:|
+| Dogs | yes | yes |
+| Kennels | yes | |
+| Breeders | yes | yes |
+| Qualifications | yes | yes |
+| Health records | yes | yes |
+
+Rows for types the uploader lacks permission for will be flagged as errors
+during validation. The Bulk Upload page and sidebar link are only visible if
+you have at least one `bulk:upload:*` permission.
+
+### Job status and history
+
+Each upload creates a job. The Bulk Upload page shows your recent jobs with
+their status:
+
+- **Pending** — queued for processing
+- **Processing** — rows being imported (progress count updates)
+- **Complete** — all rows processed (some may have failed individually)
+- **Failed** — unrecoverable error (e.g., invalid CSV)
+
+Click a job to see per-row detail including any errors or warnings.
+Qualification rows show whether a certificate was attached.
+
+### Optimising images for upload
+
+Large certificate files slow down uploads and can push ZIP files past the 50 MB
+limit. Optimise your files before uploading.
+
+**Target file sizes:**
+
+| File type | Target | Notes |
+|---|---|---|
+| Certificate scan (PDF) | Under 500 KB | Export at 150 DPI not 300 |
+| Certificate photo (JPEG) | 200-400 KB | 70-75% quality |
+| Certificate photo (PNG) | Under 1 MB | Convert to JPEG if larger |
+
+**Recommended free tools:**
+
+- **Squoosh** (squoosh.app) — browser-based, no install, drag and drop, works
+  on any OS. Recommended.
+- **TinyPNG** (tinypng.com) — free up to 20 images at a time
+- **macOS Preview** — File > Export > adjust JPEG quality to 60-70%
+- **Windows Paint** — File > Save As > JPEG
+
+**PDF certificates:**
+Scan or export at 150 DPI. Most scanner apps (Adobe Scan, Microsoft Lens,
+Apple Notes) have a resolution setting. 150 DPI is perfectly readable on
+screen and keeps PDFs under 500 KB.
+
+**What not to do:**
+
+- Do not upload raw camera files (.heic, .raw, .tiff) — convert to JPEG first
+- Do not scan at 600 DPI — unnecessary and produces huge files
+- Do not include dog photos in bulk upload ZIPs — certificates only
+
+**Quick rule of thumb:** If all certificates are under 500 KB, you can fit
+100 certificates in a 50 MB ZIP with room to spare.

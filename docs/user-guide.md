@@ -166,6 +166,38 @@ Certificates are used for admin verification only. They are **never shown public
 on dog profiles. Upload your certificate to help the admin approve your result
 quickly — you can upload it at submission or add it later while the result is pending.
 
+Accepted formats: JPEG, PNG, WebP, or PDF. Maximum size: 10 MB per file.
+
+### Optimising certificate images for upload
+
+Large certificate files slow down uploads. Optimise your files before uploading.
+
+**Target file sizes:**
+
+| File type | Target | Notes |
+|---|---|---|
+| Certificate scan (PDF) | Under 500 KB | Export at 150 DPI not 300 |
+| Certificate photo (JPEG) | 200-400 KB | 70-75% quality |
+| Certificate photo (PNG) | Under 1 MB | Convert to JPEG if larger |
+
+**Recommended free tools:**
+
+- **Squoosh** (squoosh.app) — browser-based, no install, drag and drop, works
+  on any OS. Recommended.
+- **TinyPNG** (tinypng.com) — free up to 20 images at a time
+- **macOS Preview** — File > Export > adjust JPEG quality to 60-70%
+- **Windows Paint** — File > Save As > JPEG
+
+**PDF certificates:**
+Scan or export at 150 DPI. Most scanner apps (Adobe Scan, Microsoft Lens,
+Apple Notes) have a resolution setting. 150 DPI is perfectly readable on
+screen and keeps PDFs under 500 KB.
+
+**What not to do:**
+
+- Do not upload raw camera files (.heic, .raw, .tiff) — convert to JPEG first
+- Do not scan at 600 DPI — unnecessary and produces huge files
+
 ### What happens after submission
 
 - The result is created with **status = pending**
@@ -261,6 +293,26 @@ Navigate to **Breeders** in the top navigation bar (or go to `/breeders`).
 
 ---
 
+## Account history (`/account/history`)
+
+The account history page shows the approval status of everything you have
+submitted to the registry. Navigate to it via the **History** link in the
+top navigation bar.
+
+The page lists your submissions in reverse chronological order:
+
+- **Entity type** — dog, qualification, kennel, etc.
+- **Entity name** — the name of the record you submitted
+- **Action** — approved or rejected
+- **Date** — when the admin acted, shown as relative time with a tooltip for
+  the full timestamp
+- **Reason** — for rejections, the admin's reason is shown (expandable)
+
+This is the quickest way to check whether a pending submission has been
+reviewed without navigating to each individual profile.
+
+---
+
 ## Account settings
 
 Click the **account button** (your avatar) in the top-right corner to:
@@ -270,3 +322,49 @@ Click the **account button** (your avatar) in the top-right corner to:
 
 Role upgrades (e.g. from `user` to `kennel_owner`) are handled by the registry
 administrator — contact them if you need your role changed.
+
+---
+
+## Bulk upload
+
+If you need to import many records at once (e.g. during initial registry
+migration), your administrator can grant you bulk upload permissions. Contact
+the registry administrator to request access.
+
+Once granted, you will see a **Bulk Upload** option in the navigation. You can
+upload a CSV file or a ZIP file (CSV plus certificate files) to import dogs,
+qualifications, and health records in bulk. All imported records go through the
+same approval process as individual submissions.
+
+### What you can upload
+
+The types you can upload depend on your permissions:
+
+| Type | Permission required |
+|---|---|
+| Dogs | `bulk:upload:dogs` |
+| Breeders | `bulk:upload:breeders` |
+| Qualifications | `bulk:upload:qualifications` |
+| Health records | `bulk:upload:health` |
+
+### CSV format
+
+Download a template from the Bulk Upload page. Every CSV must have a `type`
+column. Fill in the required fields for each row type. You can mix types in
+one file.
+
+### ZIP upload (with certificates)
+
+To include certificates with qualification records, upload a ZIP file instead
+of a plain CSV. Place your CSV (named `bulk.csv`) and the certificate files
+(PDF, JPEG, PNG, or WebP) in the ZIP. Add a `certificate_filename` column to
+qualification rows matching the filename in the ZIP.
+
+Maximum ZIP size: 50 MB. Maximum 500 certificate files. See the
+[image optimisation guide](admin-guide.md#optimising-images-for-upload) for
+tips on keeping file sizes down.
+
+### Tracking progress
+
+Each upload creates a job. The page shows your jobs with their status (pending,
+processing, complete, or failed). Click a job to see per-row detail.

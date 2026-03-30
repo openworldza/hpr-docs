@@ -149,6 +149,80 @@ which breeder to select.
 
 ---
 
+## Kennel audit history
+
+Each kennel profile includes a collapsible **History** section showing the
+approval audit trail for that kennel and its dogs. This is visible to kennel
+owners and admins.
+
+The history shows:
+
+- **Date** — when the action occurred (relative time with full timestamp tooltip)
+- **Entity** — the kennel itself or a dog belonging to the kennel
+- **Action** — approved or rejected
+- **Acted by** — which admin reviewed the record
+- **Reason** — for rejections, the admin's reason (expandable)
+
+Use this to track which of your submissions have been reviewed and whether any
+were rejected with feedback.
+
+---
+
+## Bulk upload
+
+Kennel owners with bulk upload permissions can import multiple records at once
+using a CSV or ZIP file. All imported records go through the approval queue.
+
+### Accessing bulk upload
+
+If you have any `bulk:upload:*` permission, the **Bulk Upload** option appears
+in your navigation. Navigate there to download templates and upload files.
+
+### What you can upload
+
+| Type | Permission |
+|---|---|
+| Dogs | `bulk:upload:dogs` |
+| Breeders | `bulk:upload:breeders` |
+| Qualifications | `bulk:upload:qualifications` |
+| Health records | `bulk:upload:health` |
+
+Kennel owners cannot bulk-upload kennels — that is admin-only.
+
+### CSV upload
+
+1. Download a template for the record types you need.
+2. Fill in the template. You can mix types in one file using the `type` column.
+3. Upload the CSV. The system validates every row before creating records.
+4. Fix any errors and re-upload if needed. Warnings do not block the upload.
+
+### ZIP upload (with certificates)
+
+To include certificates with qualification records:
+
+1. Prepare your CSV as normal.
+2. Add a `certificate_filename` column to qualification rows, set to the
+   certificate filename (e.g., `argo_vgp_2024.pdf`).
+3. Place the CSV (named `bulk.csv`) and all certificate files in a ZIP.
+4. Upload the ZIP file. Maximum size: 50 MB, maximum 500 certificate files.
+
+Certificate files can be PDF, JPEG, PNG, or WebP. See the
+[image optimisation guide](admin-guide.md#optimising-images-for-upload) for
+tips on keeping file sizes down.
+
+### Processing order
+
+Rows are processed in dependency order: kennels, breeders, dogs, qualifications,
+health records. A single upload can create a breeder, then dogs for that breeder,
+then qualification results for those dogs.
+
+### Tracking progress
+
+Each upload creates a job visible on the Bulk Upload page. Jobs show status
+(pending, processing, complete, failed) and per-row detail when clicked.
+
+---
+
 ## Notifications you may receive
 
 As a kennel owner, you are notified when:

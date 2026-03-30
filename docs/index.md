@@ -4,7 +4,7 @@ nav_order: 1
 permalink: /
 ---
 
-# HPR Registry — User Documentation
+# HPR Registry — Documentation
 
 The HPR Registry is a pedigree registry for Hunt, Point, Retrieve (HPR) breeds
 in South Africa. It is a members-only system — all users must sign in and have
@@ -12,16 +12,18 @@ their account approved before accessing the registry.
 
 ---
 
-## Contents
+## Guides
 
-| Document | Audience |
-|---|---|
-| [Getting started](getting-started.md) | Everyone — account creation and approval |
-| [Role reference](roles.md) | Everyone — what each role can and cannot do |
-| [User guide](user-guide.md) | Standard members (`user` role) |
-| [Kennel owner guide](kennel-owner-guide.md) | Kennel owners (`kennel_owner` role) |
-| [Admin guide](admin-guide.md) | Registry administrators (`admin` role) |
-| [Roadmap & feature requests](roadmap.md) | Planned features and future work |
+| Document | Audience | Description |
+|---|---|---|
+| [Features](features.md) | Everyone | What the registry does — feature overview for prospective members and breed clubs |
+| [How data flows](flow.md) | Everyone | Visual walkthrough of how records move through the system (Mermaid diagrams) |
+| [Getting started](getting-started.md) | Everyone | Account creation, approval process, first steps |
+| [Role reference](roles.md) | Everyone | What each role can and cannot do |
+| [User guide](user-guide.md) | Members | Submitting dogs, qualifications, searching, account history |
+| [Kennel owner guide](kennel-owner-guide.md) | Kennel owners | Managing kennel dogs and breeders, bulk upload, kennel audit history |
+| [Admin guide](admin-guide.md) | Administrators | Approval queue, bulk approve, audit log, bulk upload, roles, users |
+| [Roadmap](roadmap.md) | Everyone | Planned features and future work |
 
 ---
 
@@ -30,10 +32,10 @@ their account approved before accessing the registry.
 The breed list is configured per registry and may vary. The default HPR registry
 supports:
 
-- Vizsla
-- German Shorthaired Pointer (GSP)
-- German Wirehaired Pointer (GWP)
+- Hungarian Vizsla
+- Hungarian Wirehaired Vizsla
+- German Shorthaired Pointer
+- German Wirehaired Pointer
 - Weimaraner
-- Hungarian Wirehaired Vizsla (HWV)
 
 When submitting a dog, the breed dropdown shows only breeds enabled for your registry.
