@@ -27,7 +27,9 @@ top navigation bar (visible once your account is approved).
 - **Colour** (required)
 - **Country of origin** — searchable dropdown
 - **Chip ID** — microchip number (displayed in monospace)
-- **KUSA number** — registration number (displayed in monospace)
+- **Registration numbers** — one or more registry entries (e.g. KUSA, FCI, AKC).
+  KUSA is the default registry for South African dogs. Each entry has a registry
+  label and number, displayed in monospace
 
 **Birth kennel and breeder:**
 - **Birth kennel** — searchable lookup; you can also create a new kennel
@@ -94,7 +96,7 @@ The search page lets you:
 
 - **Search by name** — type part of a dog's name in the search box
   - Searches both registered name and display name (which includes qualification prefixes)
-  - Also searches by chip ID and registration number
+  - Also searches by chip ID and registration numbers
 - **Filter by breed** — select from the breed dropdown
 - **Filter by sex** — select Male or Female
 
@@ -130,7 +132,7 @@ Pending or rejected qualifications do not affect the display name.
 | Photo | Dog image (if uploaded) |
 | Qualifications | Earned qualifications grouped by organisation, near the top |
 | Health records | Hip and eye scores — mandatory section |
-| Details | Date of birth, country of origin, chip ID, KUSA number |
+| Details | Date of birth, country of origin, chip ID, registration numbers |
 | Parentage | Sire and dam — clickable links if in registry, or text if unlinked |
 | Breeder | Breeder name — clickable link if in the registry |
 | Kennel | Current kennel — clickable link |
@@ -270,6 +272,14 @@ true COI may be higher because untracked lineage could contain shared ancestors.
 These are guidelines, not rules. Breed-specific norms and the completeness
 of the pedigree should factor into your assessment.
 
+### Pedigree depth
+
+COI calculations require at least **4 generations** of complete pedigree data
+(parents linked to registry records, not entered as free text) to produce
+reliable results. The registry standard is **10 generations** — this is the
+depth used when calculating COI for any pair. Shallower pedigrees will show
+lower completeness and may underestimate the true COI.
+
 ---
 
 ## Kennel profiles
@@ -278,8 +288,8 @@ Navigate to **Kennels** in the top navigation bar (or go to `/kennels`).
 
 - Search kennels by name
 - Click a kennel card to open its profile
-- A kennel profile shows name, KUSA number, status (active/inactive), location,
-  contact details, and the founding date
+- A kennel profile shows name, registration number, status (active/inactive),
+  location, contact details, and the founding date
 
 ---
 

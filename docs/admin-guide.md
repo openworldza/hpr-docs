@@ -42,7 +42,7 @@ After saving, you are redirected to the new dog's profile.
 
 Click **+ Add kennel** on the dashboard.
 
-Fill in name, KUSA number, status, location, and contact details.
+Fill in name, registration number, status, location, and contact details.
 
 ### Add a breeder (`/admin/breeders/new`)
 
@@ -509,6 +509,26 @@ any breed is accepted.
 
 ---
 
+## COI calculator — pedigree depth
+
+The COI (Coefficient of Inbreeding) calculator analyses up to **10 generations**
+of pedigree data. This is the registry standard and produces the most accurate
+results.
+
+For COI calculations to be reliable, dogs need at least **4 generations** of
+complete pedigree data — meaning parents are linked to registry records, not
+entered as free text. Shallower pedigrees will show lower completeness
+percentages and may underestimate the true COI.
+
+When importing historical data, prioritise linking sire and dam records through
+the full pedigree chain rather than leaving them as free text. The deeper and
+more complete the linked pedigree, the more accurate COI calculations will be.
+
+The `coi:calculate` permission (under the **breeding** category in role
+management) controls access to the calculator.
+
+---
+
 ## Managing kennel members (`/admin/kennels/[id]/members`)
 
 Kennel membership allows multiple users to manage a single kennel's dogs.
@@ -571,7 +591,9 @@ imported records go through the same approval queue as individual submissions.
 Every CSV file must have a `type` column. Valid types: `dog`, `kennel`,
 `breeder`, `qualification`, `health`. Each type has its own required columns:
 
-- **Dogs**: registered_name, breed, sex (M/F), dob (YYYY-MM-DD)
+- **Dogs**: registered_name, breed, sex (M/F), dob (YYYY-MM-DD).
+  Optional `registration_number` column — creates a KUSA registration entry
+  automatically (the bulk worker maps this to the dog's registrations list)
 - **Kennels**: name
 - **Breeders**: first_name, last_name
 - **Qualifications**: dog_name or chip_id, qualification_abbreviation,

@@ -16,7 +16,8 @@ and result is reviewed before it goes live.
 
 ### Verified pedigrees
 
-Full bloodline tracking with sire and dam linking. Every dog profile shows its
+Full bloodline tracking with sire and dam linking. Multiple registration numbers
+supported — KUSA, FCI, AKC, and any other registry. Every dog profile shows its
 ancestry as clickable links — follow the line back through generations. When a
 parent is not yet in the registry, free-text entry is accepted and the birth
 kennel is notified to review and link the record.
