@@ -156,14 +156,14 @@ flowchart TD
     end
 
     subgraph Pending member
-        B[/pending page only]
+        B["/pending page only"]
     end
 
     subgraph Active member
         C[Dog search and profiles]
         D[Kennel profiles]
         E[Breeder profiles]
-        F[COI calculator — if permitted]
+        F["COI calculator — if permitted"]
         G[Own account history]
         H[Submit dogs and qualifications]
     end
@@ -172,7 +172,7 @@ flowchart TD
         I[Everything above]
         J[Kennel management]
         K[Kennel audit history]
-        L[Bulk upload — if permitted]
+        L["Bulk upload — if permitted"]
     end
 
     subgraph Admin
