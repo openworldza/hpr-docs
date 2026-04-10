@@ -50,7 +50,7 @@ flowchart TD
 ```
 
 Dogs are not visible in search results until approved. On approval, the display
-name is computed from any approved qualifications that add a name prefix. On
+name is computed from any approved qualifications with a title position. On
 rejection, the admin must provide a reason, which the submitter can see on the
 dog's profile page and in their account history.
 
@@ -71,9 +71,10 @@ flowchart TD
     I --> J{Admin reviews certificate}
     J -->|Approve| K[Result status: approved]
     J -->|Reject| L[Rejection reason required]
-    K --> M{adds_name_prefix?}
-    M -->|Yes| N[Display name updated with prefix]
-    M -->|No| O[Result shown on profile only]
+    K --> M{title_position?}
+    M -->|prefix| N[Display name updated with title prefix]
+    M -->|suffix| N2[Abbreviation appended as suffix]
+    M -->|none| O[Result shown on profile only]
     L --> P[Reason recorded in audit log]
     P --> Q[Member sees reason in account history]
 ```
@@ -81,8 +82,7 @@ flowchart TD
 Certificate upload is optional at submission but required before approval
 (admins can override at their discretion). The certificate viewer modal lets
 admins view the certificate and approve or reject directly from the modal.
-When a qualification with `adds_name_prefix = true` is approved, the dog's
-display name updates immediately.
+When a qualification with `title_position = 'prefix'` or `title_position = 'suffix'` is approved, the dog's display name updates immediately.
 
 ---
 
@@ -123,10 +123,12 @@ files can include certificate images matched to qualification rows by filename.
 ```mermaid
 flowchart LR
     A[Registered name] --> E[Display name]
-    B[Approved qualifications] --> C{adds_name_prefix = true?}
-    C -->|Yes| D[Ordered by date achieved]
-    C -->|No| F[Not included in name]
+    B[Approved qualifications] --> C{title_position}
+    C -->|prefix| D[Before name, ordered by date]
+    C -->|suffix| D2[After name, ordered by date]
+    C -->|none| F[Not included in name]
     D --> E
+    D2 --> E
 ```
 
 **Example:**
@@ -134,16 +136,19 @@ flowchart LR
 ```
 Registered name: Kennel Argo
 Approved qualifications:
-  - HZP (achieved 2021-06-15) — adds_name_prefix = true
-  - VGP (achieved 2022-03-20) — adds_name_prefix = true
+  - Ch. (achieved 2023-01-10) — title_position = prefix
+  - VGP (achieved 2022-03-20) — title_position = suffix
+  - HZP (achieved 2021-06-15) — title_position = suffix
 
-Display name: HZP-VGP Kennel Argo
+Display name: Ch. Kennel Argo VGP HZP
 ```
 
 The display name is computed by the backend, never stored in the database.
-Qualification abbreviations are joined with hyphens and ordered by date
-achieved (earliest first). The display name appears everywhere: search
-results, dog cards, profile headings, and pedigree links.
+Champion titles (`title_position = 'prefix'`) appear before the registered
+name. All other qualifications (`title_position = 'suffix'`) appear after
+the name, separated by spaces and ordered by date achieved (earliest first).
+The display name appears everywhere: search results, dog cards, profile
+headings, and pedigree links.
 
 ---
 

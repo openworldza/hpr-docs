@@ -42,12 +42,13 @@ clicks.
 ### Dog display name
 
 Every dog's **display name** includes their registered name plus earned qualification
-prefixes. For example, a dog named "Kennel von Haus Example" with approved VGP and
-HZP qualifications appears as "VGP-HZP Kennel von Haus Example" everywhere in the
-registry.
+titles and suffixes. Champion titles appear before the name; all other qualifications
+appear after. For example, a dog named "Kennel von Haus Example" with an approved
+champion title and VGP and HZP qualifications appears as
+"Ch. Kennel von Haus Example VGP HZP" everywhere in the registry.
 
-- Only approved qualifications contribute to the prefix
-- Only qualifications marked as "adds to name" contribute
+- Only approved qualifications with a title position (prefix or suffix) contribute
+- Champion titles use prefix position; field tests and working qualifications use suffix
 - The registered name in the database is never changed
 
 ### Breeder visibility
@@ -103,8 +104,9 @@ only. They are never shown publicly on dog profiles.
 The search page starts empty by design. Type a name, chip ID, or registration
 number to search. Filter by breed and sex.
 
-Dog profiles show the display name (with qualification prefixes) as the main
-heading. Qualifications are displayed near the top, grouped by organisation.
+Dog profiles show the display name (with champion title prefix and qualification
+suffixes) as the main heading. Qualifications are displayed near the top, grouped
+by organisation.
 Health records are mandatory and always shown.
 
 Kennel profiles show contact details, breeders (if publicly listed), and dogs
@@ -122,7 +124,7 @@ associated with the kennel.
 6. Submit.
 
 The result is pending until an admin approves it. Once approved, the dog's
-display name updates if the qualification adds a prefix.
+display name updates if the qualification has a title position (prefix or suffix).
 
 ---
 
@@ -165,7 +167,7 @@ only — they're never shown publicly.
 ## Key principles
 
 1. **Status is always visible** — pending, approved, or rejected with context.
-2. **Display name includes qualifications** — computed automatically, shown everywhere.
+2. **Display name includes qualifications** — champion titles prefix the name, other qualifications suffix it, computed automatically.
 3. **Free text fallback always** — parentage and breeders can be entered as text if not in the registry.
 4. **Health records are mandatory** — every test needs a result or "Not tested".
 5. **Certificates are admin-only** — used for verification, never shown publicly.
