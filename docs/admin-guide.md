@@ -114,19 +114,22 @@ Each qualification has:
   - **Has grade** — grade dropdown or free text
   - **Is pass/fail** — toggle for pass/fail results
   - **Grade options** — predefined grades (if set, shows dropdown; otherwise free text)
-- **Adds to name** toggle:
-  - When **on**: the abbreviation is prepended to the dog's display name when approved
-  - When **off**: the qualification appears on the profile but doesn't affect the name
-  - Field tests like VGP, HZP typically add to name; health tests typically do not
+- **Title position** dropdown:
+  - **prefix** — the abbreviation appears before the dog's registered name (used for champion titles, e.g. "Ch.")
+  - **suffix** — the abbreviation appears after the dog's registered name (used for field tests and working qualifications, e.g. VGP, HZP)
+  - **none** — the qualification appears on the profile but doesn't affect the display name
+  - Most field tests and working qualifications use suffix; champion titles use prefix; health tests use none
 
 ### Dog display name
 
 A dog's **display name** is computed from their registered name plus approved
-qualification prefixes. For example:
+qualifications that have a title position. For example:
 
 - Registered name: "Kennel von Haus Example"
-- Approved qualifications with adds_name_prefix: VGP (achieved 2024-01), HZP (achieved 2023-06)
-- Display name: "HZP-VGP Kennel von Haus Example" (ordered by date achieved)
+- Approved qualifications: Ch. (title_position: prefix), VGP (title_position: suffix, achieved 2024-01), HZP (title_position: suffix, achieved 2023-06)
+- Display name: "Ch. Kennel von Haus Example HZP VGP"
+
+Champion titles appear **before** the name. All other qualifications appear **after** the name, separated by spaces, ordered by date achieved (earliest first).
 
 The display name appears everywhere: search results, cards, profile heading, pedigree links.
 The registered name is never modified in the database.
@@ -137,8 +140,8 @@ The following qualifications are pre-configured in the registry.
 
 #### JGHV — Jagdgebrauchshundverband
 
-All JGHV qualifications have a numeric score and a grade. All add a name prefix
-when approved (e.g. "VGP-HZP Kennel von Haus Example").
+All JGHV qualifications have a numeric score and a grade. All appear as a suffix
+on the dog's display name when approved (e.g. "Kennel von Haus Example VGP HZP").
 
 | Name | Abbreviation | Type | Grades |
 |------|-------------|------|--------|
@@ -150,7 +153,7 @@ when approved (e.g. "VGP-HZP Kennel von Haus Example").
 
 #### KUSA — Kennel Union of Southern Africa
 
-Based on KUSA Schedule 5C(4) and Schedule 5C(6). All add a name prefix when approved.
+Based on KUSA Schedule 5C(4) and Schedule 5C(6). All appear as a suffix on the display name when approved.
 
 | Name | Abbreviation | Type | Result format |
 |------|-------------|------|---------------|
@@ -170,7 +173,7 @@ Based on KUSA Schedule 5C(4) and Schedule 5C(6). All add a name prefix when appr
 |------|-------------|------|---------------|
 | VDD Natural Ability | VDD-NA | Field test | Pass/Fail |
 
-VDD-NA does **not** add a name prefix.
+VDD-NA has `title_position: none` — it does **not** appear in the display name.
 
 ### Certificate handling
 
@@ -231,8 +234,8 @@ publicly on dog profiles.
 - If no certificate: a warning appears, but you can still approve at your discretion
 
 **Display name update:**
-When you approve a qualification that has **adds_name_prefix = true**, the dog's
-display name updates immediately to include the qualification abbreviation as a prefix.
+When you approve a qualification that has a **title position** of prefix or suffix, the dog's
+display name updates immediately — champion titles appear before the name, other qualifications after.
 
 ### Health tab
 

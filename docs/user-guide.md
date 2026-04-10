@@ -18,7 +18,7 @@ top navigation bar (visible once your account is approved).
 ### What to fill in
 
 **Identity section:**
-- **Registered name** (required) — the name without qualification prefixes
+- **Registered name** (required) — the name without qualification titles or suffixes
 - **Sex** — Male or Female
 - **Breed** (required) — from the registry's configured breed list
 
@@ -95,7 +95,7 @@ a search query. This is intentional design for performance and usability.
 The search page lets you:
 
 - **Search by name** — type part of a dog's name in the search box
-  - Searches both registered name and display name (which includes qualification prefixes)
+  - Searches both registered name and display name (which includes qualification titles and suffixes)
   - Also searches by chip ID and registration numbers
 - **Filter by breed** — select from the breed dropdown
 - **Filter by sex** — select Male or Female
@@ -111,22 +111,25 @@ Click any dog in the search results to open its profile.
 
 ### Display name vs registered name
 
-Every dog has a **display name** that includes earned qualification prefixes.
-For example, a dog named "Kennel von Haus Example" with approved VGP and HZP
-qualifications appears as "VGP-HZP Kennel von Haus Example" everywhere in the
-registry — search results, cards, and the profile heading.
+Every dog has a **display name** that includes earned qualification titles and
+suffixes. Champion titles appear before the name; all other qualifications
+appear after. For example, a dog named "Kennel von Haus Example" with an
+approved champion title and VGP and HZP qualifications appears as
+"Ch. Kennel von Haus Example VGP HZP" everywhere in the registry — search
+results, cards, and the profile heading.
 
-The **registered name** (the name without prefixes) is shown below the heading
-when it differs from the display name.
+The **registered name** (the name without titles or suffixes) is shown below
+the heading when it differs from the display name.
 
-Only approved qualifications marked as "adds to name" contribute to the prefix.
-Pending or rejected qualifications do not affect the display name.
+Only approved qualifications with a title position of prefix or suffix
+contribute to the display name. Pending or rejected qualifications do not
+affect it.
 
 ### Profile sections
 
 | Section | Details |
 |---|---|
-| Display name | The dog's name with qualification prefixes (H1 heading) |
+| Display name | The dog's name with champion title prefix and qualification suffixes (H1 heading) |
 | Registered name | Shown below the heading if different from display name |
 | Status | Breed, sex, age — compact info strip |
 | Photo | Dog image (if uploaded) |
@@ -207,7 +210,7 @@ screen and keeps PDFs under 500 KB.
 - An admin reviews and approves or rejects
 - On approval:
   - The result appears publicly on the dog's profile (without certificate)
-  - If the qualification adds to the dog's name, the display name updates immediately
+  - If the qualification has a title position (prefix or suffix), the display name updates immediately
 
 ---
 

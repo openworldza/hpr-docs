@@ -27,7 +27,7 @@ kennel is notified to review and link the record.
 Field test and working ability results submitted by members, verified by
 administrators. Each result goes through an approval workflow with certificate
 upload and review. Approved qualifications appear on the dog's profile and
-(when configured) prefix the dog's display name.
+(when configured) appear in the dog's display name as a prefix or suffix.
 
 ### Health records
 
@@ -114,8 +114,9 @@ are stored in the database — nothing is hardcoded.
 | Bringtreueprufung | BGVP | Score + Grade (Prize I/II/III) |
 | Armbruster Zuchtprufung | AZP | Score + Grade (Prize I/II/III) |
 
-All KUSA and JGHV qualifications above add a prefix to the dog's display name
-when approved.
+All KUSA and JGHV qualifications above appear as a suffix on the dog's display
+name when approved (e.g. "Kennel Argo VGP HZP"). Champion titles use prefix
+position instead (e.g. "Ch. Kennel Argo").
 
 ---
 
